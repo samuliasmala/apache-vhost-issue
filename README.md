@@ -3,11 +3,18 @@ Code to replicate Stackoverflow [Apache virtualhosts are not processed if reques
 
 ## Steps to replicate
 
-1. Build image:  
-`$ docker build -t apache-vhost-issue .`
-2. Run container:  
+### Start Apache server
+
+A) Use the pre-built image  
+`$ docker run -it --rm --name apache-server -p 8080:80 asmala/apache-vhost-issue`
+
+B) Build your own image  
+`$ docker build -t apache-vhost-issue .`  
 `$ docker run -it --rm --name apache-server -p 8080:80 apache-vhost-issue`
-3. Run curl command with malformed headers:  
+
+### Test with curl
+
+Run curl command with malformed headers:  
 `curl -H 'Content-Length: 0' -H 'Content-Length: 0' -H 'Host: beta' http://localhost:8080`
 
 Resulting error page address part:  
